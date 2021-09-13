@@ -32,13 +32,13 @@ describe('React TodoMVC', () => {
     .should('contain', TODO_ITEM_ONE)
 
     // Todo 2
-    cy.get('todos')
+    cy.get('@todos')
     .eq(1)
     .find('label')
     .should('contain', TODO_ITEM_TWO)
 
     // Todo 3
-    cy.get('todos')
+    cy.get('@todos')
     .eq(2)
     .find('label')
     .should('contain', TODO_ITEM_THREE)
