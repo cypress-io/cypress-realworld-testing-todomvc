@@ -18,7 +18,7 @@ Cypress.Commands.add('createDefaultTodos', () => {
     .type(`${TODO_ITEM_THREE}{enter}`, { log: false })
 
   cy.get('.todo-list li', { log: false })
-    .then(function ($listItems) {
-      cmd.set({ $el: $listItems }).snapshot().end()
+    .then(listItems => {
+      cmd.set({ el: listItems }).snapshot().end()
     })
 })
