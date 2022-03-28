@@ -6,7 +6,7 @@ describe('React TodoMVC practice', () => {
     // Hint: make sure to assert the length is equal to 5
   })
 
-  it('focuses on the todo input field, when theh app is first opened', () => {
+  it('focuses on the todo input field, when the app is first opened', () => {
     // Write a test that asserts that the input field
     // is focused automatically when the app is first loaded.
     // Hint: you will need to use cy.focused()
