@@ -1,0 +1,1 @@
+Cypress.Commands.add("createDefaultTodos", () => {})
