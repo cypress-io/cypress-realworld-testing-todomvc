@@ -18,8 +18,14 @@ describe("React TodoMVC", () => {
   })
 
   it("adds three todos", () => {
-        cy.createDefaultTodos()
+    cy.createDefaultTodos()
 
     cy.get(".todo-list li").should("have.length", 3)
-  })
+  });
+
+  it("should append new items to the bottom of the list", () => {
+    cy.createDefaultTodos();
+
+  });
+
 });
