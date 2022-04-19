@@ -1,7 +1,11 @@
 {
   "extends": [
     "plugin:cypress-dev/general",
-    "plugin:cypress-dev/tests"
+    "plugin:cypress-dev/tests",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
   ],
   "globals": {
     "cy": true,
