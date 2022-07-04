@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "This repo contains an example TodoMVC React App for the Real World Testing with Cypress Curriculum",
   "scripts": {
-    "cypress:open": "cypress open",
+    "cypress": "cypress open",
     "start": "http-server -p 8888 -c-1"
   },
   "dependencies": {
