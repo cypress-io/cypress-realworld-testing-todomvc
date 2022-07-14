@@ -12,11 +12,20 @@ describe("React TodoMVC", () => {
   })
 
   it("adds three todos", () => {
-    cy.get(".new-todo").type(`${TODO_ITEM_ONE}{enter}`)
-    cy.get(".new-todo").type(`${TODO_ITEM_TWO}{enter}`)
-    cy.get(".new-todo").type(`${TODO_ITEM_THREE}{enter}`)
-
+    cy.createDefaultTodos()
     cy.get(".todo-list li").should("have.length", 3)
     cy.get(".todo-list li").eq(0).find("label").should("contain", TODO_ITEM_ONE)
+  })
+
+  it("should append new items to the bottom of the list", () => {
+    cy.createDefaultTodos()
+    cy.get(".todo-list li").eq(0).find("label").should("contain", TODO_ITEM_ONE)
+    cy.get(".todo-list li").eq(1).find("label").should("contain", TODO_ITEM_TWO)
+    cy.get(".todo-list li")
+      .eq(2)
+      .find("label")
+      .should("contain", TODO_ITEM_THREE)
+    cy.get(".todo-list li").should("have.length", 3)
+    cy.get(".todo-count").contains("3 items left")
   })
 })
