@@ -3,7 +3,7 @@ Cypress.Commands.add("createDefaultTodos", () => {
   const TODO_ITEM_TWO = "Study Github"
   const TODO_ITEM_THREE = "feed the fur children"
 
-  Cypress.log({
+  let cmd = Cypress.log({
     name: "create default todos",
     consoleProps() {
       return {
@@ -16,4 +16,8 @@ Cypress.Commands.add("createDefaultTodos", () => {
     .type(`${TODO_ITEM_ONE}{enter}`, { log: false })
     .type(`${TODO_ITEM_TWO}{enter}`, { log: false })
     .type(`${TODO_ITEM_THREE}{enter}`, { log: false })
+
+  cy.get(".todo-list li", { log: false }).then((listItems) => {
+    cmd.set({ el: listItems }).snapshot().end()
+  })
 })
