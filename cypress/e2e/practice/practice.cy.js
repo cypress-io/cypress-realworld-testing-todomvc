@@ -17,22 +17,34 @@ describe("React TodoMVC practice", () => {
     // is focused automatically when the app is first loaded.
     // Hint: you will need to use cy.focused()
     // https://docs.cypress.io/api/commands/focused
+
+    cy.focused().should("have.class", "new-todo")
   })
 
   it("should clear text input field when an item is added", () => {
     // Write a test that ensures that the input field is cleared
     // after adding a todo
+    cy.get(".new-todo")
+      .type("get ready to go out {enter}")
+      .should("have.text", "")
   })
 
   it('can mark a todo as "completed"', () => {
     // Write a test that ensures that a todo can be "completed"
     // Hint: You will need to verify the class name of the completed todo
+    cy.createDefaultTodos()
+    cy.get(".todo-list li").find(".toggle").click({ multiple: true })
+    cy.get(".todo-list li").should("have.class", "completed")
   })
 
-  it('the "Clear completed" button clears all completed todos', () => {
+  it.only('the "Clear completed" button clears all completed todos', () => {
     // Write a test that ensures that the "Clear completed" removes
     // all completed todos from the app
     // Hint: You will need to verify the class name of the completed todo
+    cy.createDefaultTodos()
+    cy.get(".todo-list li").find(".toggle").click({ multiple: true })
+    cy.get(".clear-completed").click()
+    cy.get(".completed").should("not.exist")
   })
 
   it("allows you to edit a todo", () => {
