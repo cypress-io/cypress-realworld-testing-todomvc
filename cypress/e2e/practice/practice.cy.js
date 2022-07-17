@@ -37,7 +37,7 @@ describe("React TodoMVC practice", () => {
     cy.get(".todo-list li").should("have.class", "completed")
   })
 
-  it.only('the "Clear completed" button clears all completed todos', () => {
+  it('the "Clear completed" button clears all completed todos', () => {
     // Write a test that ensures that the "Clear completed" removes
     // all completed todos from the app
     // Hint: You will need to verify the class name of the completed todo
@@ -51,17 +51,41 @@ describe("React TodoMVC practice", () => {
     // Write a test that ensures that you can edit a todo
     // Hint: You will need to use cy.dblclick()
     // https://docs.cypress.io/api/commands/dblclick
+    cy.createDefaultTodos()
+    cy.get(".todo-list li").eq(0).find("label").dblclick()
+    cy.get(".todo-list li").should("have.class", "editing")
+    cy.get(".todo-list li")
+      .eq(0)
+      .find(".edit")
+      .clear()
+      .type(`Watch Resident Evil {enter}`)
   })
 
   it("should save edits on blur", () => {
     // Write a test that ensures that an edited todo is saved when it is blurred
     // Hint: You will need to use cy.blur()
     // https://docs.cypress.io/api/commands/blur
+    cy.createDefaultTodos()
+    cy.get(".todo-list li").eq(0).find("label").dblclick()
+    cy.get(".todo-list li").should("have.class", "editing")
+    cy.get(".todo-list li")
+      .eq(0)
+      .find(".edit")
+      .clear()
+      .type(`Watch Resident Evil`)
+      .blur()
+    cy.get(".todo-list li").eq(0).contains("Watch Resident Evil")
   })
 
   it("should display the current number of todo items", () => {
     // Write a test that ensures that the app counts the correct number of todos
     // left to be completed, i.e "3 items left" in the bottom left corner.
+    cy.createDefaultTodos()
+    cy.get(".todo-list li").eq(0).find(".toggle").click()
+    cy.get(".todo-count").find("strong").contains("2")
+
+    cy.get(".new-todo").type("read {enter}")
+    cy.get(".todo-count").find("strong").contains("3")
   })
 
   it("should persist its data after a page refresh", () => {
@@ -69,10 +93,22 @@ describe("React TodoMVC practice", () => {
     // after the browser refreshes the page
     // Hint: You will need to use cy.reload()
     // https://docs.cypress.io/api/commands/reload
+    cy.createDefaultTodos()
+    cy.reload()
+    cy.get(".todo-list li")
+      .should("have.length", 3)
+      .contains("Fold the laundry")
   })
 
-  it("can display only completed todos", () => {
+  it.only("can display only completed todos", () => {
     // Write a test that ensures that only the completed todos are
     // displayed when the "Completed" button is clicked at the bottom
+    cy.get(".new-todo")
+      .type("drink water {enter}")
+      .type("take vitamins {enter}")
+      .type("go out for air {enter}")
+    cy.get(".todo-list li").eq(0).find(".toggle").click()
+    cy.get(".filters li").eq(2).click()
+    cy.get(".todo-list li").eq(0).contains("drink water")
   })
 })
